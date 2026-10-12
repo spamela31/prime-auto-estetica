@@ -12,7 +12,10 @@ import {
   Wrench,
   Sun,
   Send,
-  X
+  X,
+  Star,
+  ChevronDown,
+  CheckCircle
 } from 'lucide-react';
 
 interface Servico {
@@ -27,6 +30,15 @@ interface Servico {
   destaque?: string;
   descricao: string;
   icone: any;
+}
+
+interface Depoimento {
+  id: number;
+  nome: string;
+  veiculo: string;
+  foto: string;
+  texto: string;
+  avaliacao: number;
 }
 
 const SERVICOS_INICIAIS: Servico[] = [
@@ -97,6 +109,71 @@ const SERVICOS_INICIAIS: Servico[] = [
   }
 ];
 
+const GALERIA_ANTES_DEPOIS = [
+  {
+    id: 1,
+    titulo: 'Polimento e Restauração de Faróis Opacos',
+    modelo: 'Honda Civic',
+    antes: 'https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=600&q=80',
+    depois: 'https://images.unsplash.com/photo-1555215695-3004980adade?auto=format&fit=crop&w=600&q=80',
+    servico: 'Polimento de Faróis'
+  },
+  {
+    id: 2,
+    titulo: 'Higienização Interna e Cuidado com Couro',
+    modelo: 'Jeep Compass',
+    antes: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80',
+    depois: 'https://images.unsplash.com/photo-1542282088-72c9c27ed0cd?auto=format&fit=crop&w=600&q=80',
+    servico: 'Higienização + Hidratação de Couro'
+  }
+];
+
+const DEPOIMENTOS_INICIAIS: Depoimento[] = [
+  {
+    id: 1,
+    nome: 'Carlos Eduardo',
+    veiculo: 'Honda Civic',
+    foto: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80',
+    texto: 'Fiz o polimento dos faróis e a lavagem detalhada na Prime Auto Estética. O carro renovou completamente, parecia outro farol!',
+    avaliacao: 5
+  },
+  {
+    id: 2,
+    nome: 'Fernanda Lima',
+    veiculo: 'Jeep Compass',
+    foto: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80',
+    texto: 'A higienização interna completa e o tratamento de couro deixaram a cabine cheirosa e super limpa. Trabalho impecável!',
+    avaliacao: 5
+  },
+  {
+    id: 3,
+    nome: 'Marcelo Siqueira',
+    veiculo: 'Toyota Corolla',
+    foto: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=150&q=80',
+    texto: 'A revitalização dos plásticos deu vida nova aos para-choques que estavam acinzentados. Recomendo demais!',
+    avaliacao: 5
+  }
+];
+
+const FAQ_LISTA = [
+  {
+    pergunta: 'Com que frequência devo fazer a Hidratação de Bancos de Couro?',
+    resposta: 'Recomendamos a cada 3 a 6 meses para evitar rachaduras, ressecamento e manter o toque macio do couro original.'
+  },
+  {
+    pergunta: 'Quanto tempo dura o efeito do Polimento de Faróis?',
+    resposta: 'O efeito dura por muito tempo pois removemos a camada amarelada/oxidada e aplicamos proteção UV sobre a lente do farol.'
+  },
+  {
+    pergunta: 'Como funciona a escolha dos serviços no site?',
+    resposta: 'Você pode selecionar quantos serviços desejar na lista! O site calcula o valor e o tempo estimado automaticamente e envia o resumo direto para nosso WhatsApp.'
+  },
+  {
+    pergunta: 'Como é feito o pagamento?',
+    resposta: 'O pagamento é feito diretamente no local após você inspecionar o veículo e aprovar todo o serviço realizado.'
+  }
+];
+
 export default function App() {
   const [numeroWhatsapp] = useState('5543920005013');
   const [nomeLoja] = useState('Prime Auto Estética');
@@ -124,6 +201,7 @@ export default function App() {
   const [observacoes, setObservacoes] = useState('');
 
   const [categoriaFiltro, setCategoriaFiltro] = useState('Todas');
+  const [faqAberto, setFaqAberto] = useState<number | null>(null);
   const [, setMensagemSucesso] = useState(false);
 
   const alternarServico = (servico: Servico) => {
@@ -225,6 +303,9 @@ _Olá! Gostaria de confirmar a disponibilidade deste agendamento no sistema da P
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-300">
             <a href="#servicos" className="hover:text-[#00ffff] transition-colors">Serviços</a>
             <a href="#calculadora" className="hover:text-[#00ffff] transition-colors">Calculadora & Agendar</a>
+            <a href="#galeria" className="hover:text-[#00ffff] transition-colors">Antes & Depois</a>
+            <a href="#depoimentos" className="hover:text-[#00ffff] transition-colors">Depoimentos</a>
+            <a href="#faq" className="hover:text-[#00ffff] transition-colors">Dúvidas</a>
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
@@ -261,6 +342,9 @@ _Olá! Gostaria de confirmar a disponibilidade deste agendamento no sistema da P
           <div className="md:hidden bg-neutral-950 border-b border-neutral-800 px-4 pt-2 pb-6 flex flex-col gap-3">
             <a href="#servicos" onClick={() => setMenuMobileAberto(false)} className="text-neutral-300 hover:text-[#00ffff] py-2">Serviços</a>
             <a href="#calculadora" onClick={() => setMenuMobileAberto(false)} className="text-neutral-300 hover:text-[#00ffff] py-2">Calculadora & Agendar</a>
+            <a href="#galeria" onClick={() => setMenuMobileAberto(false)} className="text-neutral-300 hover:text-[#00ffff] py-2">Antes & Depois</a>
+            <a href="#depoimentos" onClick={() => setMenuMobileAberto(false)} className="text-neutral-300 hover:text-[#00ffff] py-2">Depoimentos</a>
+            <a href="#faq" onClick={() => setMenuMobileAberto(false)} className="text-neutral-300 hover:text-[#00ffff] py-2">Dúvidas</a>
             <a
               href={`https://instagram.com/${instagramUser}`}
               target="_blank"
@@ -312,6 +396,48 @@ _Olá! Gostaria de confirmar a disponibilidade deste agendamento no sistema da P
               <Instagram className="w-5 h-5 text-[#00ffff]" />
               @{instagramUser}
             </a>
+          </div>
+
+          <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 pt-12 border-t border-neutral-800 text-left">
+            <div className="flex items-start gap-3">
+              <div className="p-2.5 bg-neutral-900 border border-[#00ffff]/30 rounded-xl text-[#00ffff] shrink-0">
+                <ShieldCheck className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-white font-bold text-sm">Garantia de Qualidade</h3>
+                <p className="text-xs text-neutral-400 mt-0.5">Serviço feito com máxima atenção</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <div className="p-2.5 bg-neutral-900 border border-[#00ffff]/30 rounded-xl text-[#00ffff] shrink-0">
+                <Award className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-white font-bold text-sm">Produtos Específicos</h3>
+                <p className="text-xs text-neutral-400 mt-0.5">Insumos que protegem a lataria</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <div className="p-2.5 bg-neutral-900 border border-[#00ffff]/30 rounded-xl text-[#00ffff] shrink-0">
+                <User className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-white font-bold text-sm">Cuidado Profissional</h3>
+                <p className="text-xs text-neutral-400 mt-0.5">Atendimento rápido e dedicado</p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <div className="p-2.5 bg-neutral-900 border border-[#00ffff]/30 rounded-xl text-[#00ffff] shrink-0">
+                <Clock className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="text-white font-bold text-sm">Pontualidade</h3>
+                <p className="text-xs text-neutral-400 mt-0.5">Veículo pronto no horário combinado</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -390,7 +516,13 @@ _Olá! Gostaria de confirmar a disponibilidade deste agendamento no sistema da P
                           : 'bg-neutral-900 hover:bg-neutral-800 text-white border border-neutral-800 hover:border-[#00ffff]/40'
                       }`}
                     >
-                      {estaSelecionado ? 'Selecionado' : 'Adicionar'}
+                      {estaSelecionado ? (
+                        <>
+                          <CheckCircle className="w-4 h-4" /> Selecionado
+                        </>
+                      ) : (
+                        'Adicionar'
+                      )}
                     </button>
                   </div>
                 </div>
@@ -401,178 +533,4 @@ _Olá! Gostaria de confirmar a disponibilidade deste agendamento no sistema da P
       </section>
 
       {/* Secção Calculadora e Agendamento */}
-      <section id="calculadora" className="py-24 bg-neutral-950 border-b border-neutral-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-bold text-[#00ffff] uppercase tracking-widest block mb-2">Estimativa & Agendamento</span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">Monte seu Combo e Agende</h2>
-            <p className="text-neutral-400 text-sm">
-              Selecione os serviços desejados, informe os dados do seu carro e envie o agendamento direto para nosso WhatsApp.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <div className="lg:col-span-7 bg-black border border-neutral-800 p-6 sm:p-8 rounded-3xl">
-              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                <User className="w-5 h-5 text-[#00ffff]" /> Dados do Veículo e Agendamento
-              </h3>
-
-              <form onSubmit={aoEnviarAgendamento} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-neutral-300 uppercase tracking-wider mb-2">Seu Nome *</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Ex: Carlos Silva"
-                      value={nomeCliente}
-                      onChange={(e) => setNomeCliente(e.target.value)}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#00ffff]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-neutral-300 uppercase tracking-wider mb-2">Seu WhatsApp *</label>
-                    <input
-                      type="tel"
-                      required
-                      placeholder="(43) 92000-5013"
-                      value={telefoneCliente}
-                      onChange={(e) => setTelefoneCliente(e.target.value)}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#00ffff]"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-neutral-300 uppercase tracking-wider mb-2">Modelo do Carro *</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Ex: Civic 2021"
-                      value={modeloVeiculo}
-                      onChange={(e) => setModeloVeiculo(e.target.value)}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#00ffff]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-neutral-300 uppercase tracking-wider mb-2">Porte / Categoria</label>
-                    <select
-                      value={tipoVeiculo}
-                      onChange={(e) => setTipoVeiculo(e.target.value)}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#00ffff]"
-                    >
-                      <option value="Hatch / Compacto">Hatch / Compacto</option>
-                      <option value="Sedan / Medium">Sedan / Medium</option>
-                      <option value="SUV / Picape">SUV / Picape</option>
-                      <option value="Esportivo / Premium">Esportivo / Premium</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-neutral-300 uppercase tracking-wider mb-2">Placa / Cor</label>
-                    <input
-                      type="text"
-                      placeholder="Ex: ABC-1234 (Preto)"
-                      value={placaCor}
-                      onChange={(e) => setPlacaCor(e.target.value)}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#00ffff]"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-bold text-neutral-300 uppercase tracking-wider mb-2">Data Desejada *</label>
-                    <input
-                      type="date"
-                      required
-                      value={dataAgendamento}
-                      onChange={(e) => setDataAgendamento(e.target.value)}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#00ffff]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-bold text-neutral-300 uppercase tracking-wider mb-2">Horário Desejado *</label>
-                    <select
-                      value={horarioAgendamento}
-                      onChange={(e) => setHorarioAgendamento(e.target.value)}
-                      required
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#00ffff]"
-                    >
-                      <option value="">Selecione o horário</option>
-                      <option value="08:00">08:00</option>
-                      <option value="10:00">10:00</option>
-                      <option value="13:30">13:30</option>
-                      <option value="15:30">15:30</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-bold text-neutral-300 uppercase tracking-wider mb-2">Observações (Opcional)</label>
-                  <textarea
-                    rows={3}
-                    placeholder="Algum detalhe específico sobre o veículo..."
-                    value={observacoes}
-                    onChange={(e) => setObservacoes(e.target.value)}
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#00ffff]"
-                  ></textarea>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-[#00ffff] hover:bg-[#5ffff] text-black font-black py-4 rounded-xl text-sm uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(0,255,255,0.3)] flex items-center justify-center gap-2"
-                >
-                  <Send className="w-4 h-4 fill-current" /> Enviar Agendamento via WhatsApp
-                </button>
-              </form>
-            </div>
-
-            <div className="lg:col-span-5 bg-black border border-neutral-800 p-6 sm:p-8 rounded-3xl sticky top-28">
-              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-[#00ffff]" /> Resumo do Combo
-              </h3>
-
-              {servicosSelecionados.length === 0 ? (
-                <div className="text-center py-12 border border-dashed border-neutral-800 rounded-2xl p-6">
-                  <p className="text-neutral-400 text-sm">Nenhum serviço selecionado ainda.</p>
-                  <span className="text-xs text-neutral-500 mt-1 block">Escolha os serviços na lista acima para calcular o valor e tempo.</span>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  <div className="space-y-2 max-h-60 overflow-y-auto pr-2">
-                    {servicosSelecionados.map((s) => (
-                      <div key={s.id} className="flex items-center justify-between p-3 bg-neutral-900 rounded-xl border border-neutral-800 text-xs">
-                        <div>
-                          <span className="font-bold text-white block">{s.nome}</span>
-                          <span className="text-neutral-400">{s.tempo}</span>
-                        </div>
-                        <span className="font-black text-[#00ffff]">{s.precoTexto}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="pt-4 border-t border-neutral-800 space-y-2">
-                    <div className="flex justify-between text-sm text-neutral-400">
-                      <span>Tempo Estimado:</span>
-                      <span className="text-white font-bold">~{horasTotais} horas</span>
-                    </div>
-                    <div className="flex justify-between text-base font-black text-white">
-                      <span>Valor Estimado:</span>
-                      <span className="text-[#00ffff]">R$ {valorTotalMin.toFixed(2).replace('.', ',')} a R$ {valorTotalMax.toFixed(2).replace('.', ',')}</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Rodapé */}
-      <footer className="bg-neutral-950 border-t border-neutral-800 py-12 text-center text-xs text-neutral-500">
-        <p>© {new Date().getFullYear()} Prime Auto Estética. Todos os direitos reservados.</p>
-      </footer>
-    </div>
-  );
-}
+      <section id="calculadora
