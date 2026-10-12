@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { 
   Car, 
   Sparkles, 
@@ -19,7 +18,7 @@ import {
   Wrench,
   Sun,
   Send,
-  User
+  User // Adicione esta linha
 } from 'lucide-react';
 
 interface Servico {
