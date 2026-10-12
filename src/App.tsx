@@ -134,7 +134,7 @@ const DEPOIMENTOS_INICIAIS: Depoimento[] = [
     nome: 'Carlos Eduardo',
     veiculo: 'Honda Civic',
     foto: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80',
-    texto: 'Fiz o polimento dos faróis e a lavagem detalhada na Prime Auto Estética. O carro renovou completamente, parecia outro farol!',
+    texto: 'Fiz o polimento dos faróis e a lavagem detalhada na Prime Auto Estética. O carro renovou completamente!',
     avaliacao: 5
   },
   {
@@ -142,7 +142,7 @@ const DEPOIMENTOS_INICIAIS: Depoimento[] = [
     nome: 'Fernanda Lima',
     veiculo: 'Jeep Compass',
     foto: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80',
-    texto: 'A higienização interna completa e o tratamento de couro deixaram a cabine cheirosa e super limpa. Trabalho impecável!',
+    texto: 'A higienização interna completa e o tratamento de couro deixaram a cabine cheirosa e super limpa!',
     avaliacao: 5
   },
   {
@@ -415,122 +415,4 @@ _Olá! Gostaria de confirmar a disponibilidade deste agendamento no sistema da P
               </div>
               <div>
                 <h3 className="text-white font-bold text-sm">Produtos Específicos</h3>
-                <p className="text-xs text-neutral-400 mt-0.5">Insumos que protegem a lataria</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3">
-              <div className="p-2.5 bg-neutral-900 border border-[#00ffff]/30 rounded-xl text-[#00ffff] shrink-0">
-                <User className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="text-white font-bold text-sm">Cuidado Profissional</h3>
-                <p className="text-xs text-neutral-400 mt-0.5">Atendimento rápido e dedicado</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3">
-              <div className="p-2.5 bg-neutral-900 border border-[#00ffff]/30 rounded-xl text-[#00ffff] shrink-0">
-                <Clock className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="text-white font-bold text-sm">Pontualidade</h3>
-                <p className="text-xs text-neutral-400 mt-0.5">Veículo pronto no horário combinado</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Secção de Serviços */}
-      <section id="servicos" className="py-24 bg-black relative border-b border-neutral-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8">
-            <div>
-              <span className="text-xs font-bold text-[#00ffff] uppercase tracking-widest block mb-2">Cuidados Exclusivos</span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-white">Nossos Serviços</h2>
-            </div>
-
-            <div className="mt-6 md:mt-0 flex flex-wrap gap-2 bg-neutral-900 p-1.5 rounded-xl border border-neutral-800">
-              {['Todas', 'Limpeza', 'Restauração', 'Interior'].map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setCategoriaFiltro(cat)}
-                  className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
-                    categoriaFiltro === cat
-                      ? 'bg-[#00ffff] text-black shadow-[0_0_15px_rgba(0,255,255,0.4)]'
-                      : 'text-neutral-400 hover:text-white hover:bg-neutral-800'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {servicosFiltrados.map((servico) => {
-              const IconeComp = servico.icone;
-              const estaSelecionado = servicosSelecionados.some(s => s.id === servico.id);
-
-              return (
-                <div
-                  key={servico.id}
-                  className={`relative bg-neutral-950 border rounded-2xl p-6 transition-all duration-300 flex flex-col justify-between hover:border-[#00ffff]/60 group ${
-                    estaSelecionado ? 'border-[#00ffff] ring-1 ring-[#00ffff] bg-neutral-900 shadow-[0_0_20px_rgba(0,255,255,0.15)]' : 'border-neutral-800'
-                  }`}
-                >
-                  <div>
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="p-3 bg-neutral-900 border border-neutral-800 rounded-xl text-[#00ffff] group-hover:bg-[#00ffff] group-hover:text-black transition-colors">
-                        <IconeComp className="w-6 h-6" />
-                      </div>
-                      {servico.destaque && (
-                        <span className="px-3 py-1 text-[10px] font-black uppercase tracking-wider rounded-md bg-[#00ffff]/10 text-[#00ffff] border border-[#00ffff]/30">
-                          {servico.destaque}
-                        </span>
-                      )}
-                    </div>
-
-                    <h3 className="text-xl font-bold text-white mb-2">{servico.nome}</h3>
-                    <p className="text-sm text-neutral-400 font-normal leading-relaxed mb-6">
-                      {servico.descricao}
-                    </p>
-                  </div>
-
-                  <div className="pt-4 border-t border-neutral-800 flex items-center justify-between">
-                    <div>
-                      <div className="flex items-center gap-1.5 text-xs text-neutral-400 mb-1">
-                        <Clock className="w-3.5 h-3.5 text-[#00ffff]" /> {servico.tempo}
-                      </div>
-                      <span className="text-lg font-black text-white">
-                        {servico.precoTexto}
-                      </span>
-                    </div>
-
-                    <button
-                      onClick={() => alternarServico(servico)}
-                      className={`px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2 ${
-                        estaSelecionado
-                          ? 'bg-[#00ffff] text-black shadow-[0_0_15px_rgba(0,255,255,0.4)]'
-                          : 'bg-neutral-900 hover:bg-neutral-800 text-white border border-neutral-800 hover:border-[#00ffff]/40'
-                      }`}
-                    >
-                      {estaSelecionado ? (
-                        <>
-                          <CheckCircle className="w-4 h-4" /> Selecionado
-                        </>
-                      ) : (
-                        'Adicionar'
-                      )}
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Secção Calculadora e Agendamento */}
-      <section id="calculadora
+                <p className="text-xs text-
