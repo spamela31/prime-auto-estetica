@@ -651,14 +651,14 @@ _Olá! Gostaria de confirmar a disponibilidade deste agendamento no sistema da P
                     <label className="block text-xs font-bold text-neutral-300 uppercase tracking-wider mb-2">
                       Seu WhatsApp *
                     </label>
-                    <input
-                      type="tel"
-                      required
-                      placeholder="(43) 92000-5013"
-                      value={telefoneCliente}
-                      onChange={(e) => setTelefoneCliente(e.target.value)}
-                      className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#00ffff] transition-colors"
-                    />
+                  <input
+  type="tel"
+  required
+  placeholder="(DD) 9XXXX-XXXX"
+  value={telefoneCliente}
+  onChange={(e) => setTelefoneCliente(e.target.value)}
+  className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#00ffff] transition-colors"
+/>
                   </div>
                 </div>
 
