@@ -18,7 +18,8 @@ import {
   Award,
   Wrench,
   Sun,
-  Send
+  Send,
+  User
 } from 'lucide-react';
 
 interface Servico {
